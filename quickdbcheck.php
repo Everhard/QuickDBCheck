@@ -10,9 +10,19 @@
             background: #343a40;
         }
         #main {
-            width: 80%;
-            height: 500px;
+            width: 40%;
             border-radius: 21px;
+            padding: 50px 0;
+        }
+        @media all and (max-width: 700px) {
+            #main {
+                width: 90%;
+            }
+        }
+        #form {
+            width: 90%;
+            margin: 0 auto;
+            color: #212529;
         }
     </style>
 </head>
@@ -23,7 +33,26 @@
         <h2 class="display-5">QuickDBCheck</h2>
         <p class="lead">Written by <a href="http://dorohoff.net">Andrew Dorokhov</a></p>
     </div>
-    <div id="main" class="bg-light shadow-sm mx-auto"></div>
+    <div id="main" class="bg-light shadow-sm mx-auto text-left">
+        <form id="form" method="post">
+            <div class="form-group">
+                <label for="host-name">Host name:</label>
+                <input type="text" class="form-control" id="host-name" placeholder="Enter host name" value="localhost">
+                <small class="form-text text-muted">For example, localhost</small>
+            </div>
+            <div class="form-group">
+                <label for="database-username">Database username:</label>
+                <input type="text" class="form-control" id="database-username" placeholder="Enter database username">
+            </div>
+            <div class="form-group">
+                <label for="host-name">Database password:</label>
+                <input type="password" class="form-control" id="database-password" placeholder="Enter database password">
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-lg btn-success">Check credentials</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
