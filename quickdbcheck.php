@@ -60,3 +60,29 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<?php
+
+class QuickDBCheck
+{
+    private $dbh;
+    private $error;
+
+    public function __construct($host_name, $db_username, $db_password)
+    {
+        try {
+            $this->dbh = new PDO("mysql:host=$host_name", $db_username, $db_password);
+        }
+        catch(PDOException $e) {
+            $this->error = [
+                'code'      => $e->getCode(),
+                'message'   => $e->getMessage(),
+            ];
+        }
+    }
+
+    public function isAuthPassed()
+    {
+        return $this->error ? false : true;
+    }
+}
