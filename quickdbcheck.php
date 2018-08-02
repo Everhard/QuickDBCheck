@@ -37,16 +37,16 @@
         <form id="form" method="post">
             <div class="form-group">
                 <label for="host-name">Host name:</label>
-                <input type="text" class="form-control" id="host-name" placeholder="Enter host name" value="localhost">
+                <input type="text" name="host-name" class="form-control" id="host-name" placeholder="Enter host name" value="localhost">
                 <small class="form-text text-muted">For example, localhost</small>
             </div>
             <div class="form-group">
                 <label for="database-username">Database username:</label>
-                <input type="text" class="form-control" id="database-username" placeholder="Enter database username">
+                <input type="text" name="database-username" class="form-control" id="database-username" placeholder="Enter database username">
             </div>
             <div class="form-group">
                 <label for="host-name">Database password:</label>
-                <input type="password" class="form-control" id="database-password" placeholder="Enter database password">
+                <input type="password" name="database-password" class="form-control" id="database-password" placeholder="Enter database password">
             </div>
             <div class="form-group text-center">
                 <button type="submit" class="btn btn-lg btn-success">Check credentials</button>
@@ -58,6 +58,17 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script>
+    $(function() {
+        $("#form").on('submit', function(e) {
+            $.ajax({
+                method: "POST",
+                data: $(this).serialize()
+            });
+            e.preventDefault();
+        });
+    });
+</script>
 </body>
 </html>
 
