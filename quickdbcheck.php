@@ -55,25 +55,49 @@ if (isset($_POST['form'])) {
         <h2 class="display-5">QuickDBCheck</h2>
         <p class="lead">Written by <a href="http://dorohoff.net">Andrew Dorokhov</a></p>
     </div>
-    <div id="main" class="bg-light shadow-sm mx-auto text-left">
-        <form id="form" method="post">
-            <div class="form-group">
-                <label for="host-name">Host name:</label>
-                <input type="text" name="form[host-name]" class="form-control" id="host-name" placeholder="Enter host name" value="localhost">
-                <small class="form-text text-muted">For example, localhost</small>
+    <div id="main" class="bg-light shadow-sm mx-auto text-left row">
+        <div class="col-sm">
+            <form id="form" method="post">
+                <div class="form-group">
+                    <label for="host-name">Host name:</label>
+                    <input type="text" name="form[host-name]" class="form-control" id="host-name" placeholder="Enter host name" value="localhost">
+                    <small class="form-text text-muted">For example, localhost</small>
+                </div>
+                <div class="form-group">
+                    <label for="database-username">Database username:</label>
+                    <input type="text" name="form[database-username]" class="form-control" id="database-username" placeholder="Enter database username">
+                </div>
+                <div class="form-group">
+                    <label for="host-name">Database password:</label>
+                    <input type="password" name="form[database-password]" class="form-control" id="database-password" placeholder="Enter database password">
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-lg btn-success">Check credentials</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm">
+            <div class="card text-center">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#result" href="#">Result</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#databases" href="#">Databases</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body tab-content">
+                    <div id="result" class="tab-pane fade show active">
+                        <a href="#" class="btn btn-primary">Show databases</a>
+                    </div>
+                    <div id="databases" class="tab-pane fade">
+                        <h3>Databases list</h3>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="database-username">Database username:</label>
-                <input type="text" name="form[database-username]" class="form-control" id="database-username" placeholder="Enter database username">
-            </div>
-            <div class="form-group">
-                <label for="host-name">Database password:</label>
-                <input type="password" name="form[database-password]" class="form-control" id="database-password" placeholder="Enter database password">
-            </div>
-            <div class="form-group text-center">
-                <button type="submit" class="btn btn-lg btn-success">Check credentials</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
