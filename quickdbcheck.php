@@ -1,3 +1,25 @@
+<?php
+if (isset($_POST['form'])) {
+
+    $form_data = $_POST['form'];
+
+    $response = [
+            'error' => false,
+    ];
+
+    $quickdbcheck = new QuickDBCheck(
+            $form_data['host-name'],
+            $form_data['database-username'],
+            $form_data['database-password']
+    );
+
+    $response['auth_passed'] = $quickdbcheck->isAuthPassed() ? 1 : 0;
+
+    echo json_encode($response);
+
+    exit;
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -37,16 +59,16 @@
         <form id="form" method="post">
             <div class="form-group">
                 <label for="host-name">Host name:</label>
-                <input type="text" name="host-name" class="form-control" id="host-name" placeholder="Enter host name" value="localhost">
+                <input type="text" name="form[host-name]" class="form-control" id="host-name" placeholder="Enter host name" value="localhost">
                 <small class="form-text text-muted">For example, localhost</small>
             </div>
             <div class="form-group">
                 <label for="database-username">Database username:</label>
-                <input type="text" name="database-username" class="form-control" id="database-username" placeholder="Enter database username">
+                <input type="text" name="form[database-username]" class="form-control" id="database-username" placeholder="Enter database username">
             </div>
             <div class="form-group">
                 <label for="host-name">Database password:</label>
-                <input type="password" name="database-password" class="form-control" id="database-password" placeholder="Enter database password">
+                <input type="password" name="form[database-password]" class="form-control" id="database-password" placeholder="Enter database password">
             </div>
             <div class="form-group text-center">
                 <button type="submit" class="btn btn-lg btn-success">Check credentials</button>
@@ -63,7 +85,10 @@
         $("#form").on('submit', function(e) {
             $.ajax({
                 method: "POST",
-                data: $(this).serialize()
+                data: $(this).serialize(),
+                success: function(response) {
+                    console.log(response);
+                }
             });
             e.preventDefault();
         });
