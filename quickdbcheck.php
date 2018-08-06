@@ -36,6 +36,13 @@ if (isset($_POST['form'])) {
             border-radius: 21px;
             padding: 50px 0;
         }
+        #main .card-body {
+            min-height: 275px;
+            color: #212529;
+        }
+        #main .card-body ul {
+            margin-bottom: 15px;
+        }
         @media all and (max-width: 700px) {
             #main {
                 width: 90%;
@@ -90,6 +97,11 @@ if (isset($_POST['form'])) {
                 </div>
                 <div class="card-body tab-content">
                     <div id="result" class="tab-pane fade show active">
+                        <ul class="list-group text-left">
+                            <li class="list-group-item">Auth: <strong class="text-success">Success</strong></li>
+                            <li class="list-group-item">Error: SQLSTATE[HY000] [1045] Access denied for user 'andrew'@'localhost' (using password: YES)</li>
+                            <li class="list-group-item">Error code: 1045</li>
+                        </ul>
                         <a href="#" class="btn btn-primary">Show databases</a>
                     </div>
                     <div id="databases" class="tab-pane fade">
