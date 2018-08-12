@@ -13,7 +13,7 @@ if (isset($_POST['form'])) {
             $form_data['database-password']
     );
 
-    $response['auth_passed'] = $quickdbcheck->isAuthPassed() ? 1 : 0;
+    $response['auth_passed'] = $quickdbcheck->isAuthPassed();
 
     echo json_encode($response);
 
@@ -105,7 +105,12 @@ if (isset($_POST['form'])) {
                         <a href="#" class="btn btn-primary">Show databases</a>
                     </div>
                     <div id="databases" class="tab-pane fade">
-                        <h3>Databases list</h3>
+                        <ul class="list-group">
+                            <li class="list-group-item">database_one</li>
+                            <li class="list-group-item">database_two</li>
+                            <li class="list-group-item">database_three</li>
+                            <li class="list-group-item">database_four</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -123,12 +128,33 @@ if (isset($_POST['form'])) {
                 method: "POST",
                 data: $(this).serialize(),
                 success: function(response) {
-                    console.log(response);
+                    var result = eval("(" + response + ")");
+                    showResult(result);
                 }
             });
             e.preventDefault();
         });
     });
+    function showResult(data) {
+        renderResultArea(data);
+        renderDatabasesArea(data);
+    }
+    function renderResultArea(data) {
+        var resultArea = $("#result > ul");
+        resultArea.empty();
+
+        if (data.auth) {
+            var message = '<strong class="text-success">Success</strong>';
+        } else {
+            var message = '<strong class="text-danger">Fail</strong>';
+        }
+
+        resultArea.append('<li class="list-group-item">Auth: ' + message + '</li>');
+    }
+    function renderDatabasesArea() {
+        var databasesArea = $("#databases > ul");
+        databasesArea.empty();
+    }
 </script>
 </body>
 </html>
