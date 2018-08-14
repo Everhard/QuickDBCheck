@@ -3,18 +3,15 @@ if (isset($_POST['form'])) {
 
     $form_data = $_POST['form'];
 
-    $response = [
-            'error' => false,
-    ];
-
     $quickdbcheck = new QuickDBCheck(
             $form_data['host-name'],
             $form_data['database-username'],
             $form_data['database-password']
     );
 
-    $response['auth_passed']    = $quickdbcheck->isAuthPassed();
+    $response['authPassed']     = $quickdbcheck->isAuthPassed();
     $response['error']          = $quickdbcheck->getError();
+    $response['databasesCount'] = $quickdbcheck->getDatabasesCount();
 
     echo json_encode($response);
 
@@ -144,7 +141,7 @@ if (isset($_POST['form'])) {
         var resultArea = $("#result > ul");
         resultArea.empty();
 
-        if (data.auth) {
+        if (data.authPassed) {
             var message = '<strong class="text-success">Success</strong>';
         } else {
             var message = '<strong class="text-danger">Fail</strong>';
@@ -199,5 +196,19 @@ class QuickDBCheck
         }
 
         return $error;
+    }
+
+    public function getDatabasesCount()
+    {
+        $database_count = 0;
+
+        if (!$this->error) {
+            $dbs = $this->dbh->query('SHOW DATABASES');
+            while (($db = $dbs->fetchColumn(0)) !== false) {
+                $database_count++;
+            }
+        }
+
+        return $database_count;
     }
 }
