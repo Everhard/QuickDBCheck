@@ -13,7 +13,8 @@ if (isset($_POST['form'])) {
             $form_data['database-password']
     );
 
-    $response['auth_passed'] = $quickdbcheck->isAuthPassed();
+    $response['auth_passed']    = $quickdbcheck->isAuthPassed();
+    $response['error']          = $quickdbcheck->getError();
 
     echo json_encode($response);
 
@@ -149,7 +150,12 @@ if (isset($_POST['form'])) {
             var message = '<strong class="text-danger">Fail</strong>';
         }
 
-        resultArea.append('<li class="list-group-item">Auth: ' + message + '</li>');
+        if (data.error) {
+            resultArea.prepend('<li class="list-group-item">Error code: ' + data.error.code + '</li>');
+            resultArea.prepend('<li class="list-group-item">Error: ' + data.error.message + '</li>');
+        }
+
+        resultArea.prepend('<li class="list-group-item">Auth: ' + message + '</li>');
     }
     function renderDatabasesArea() {
         var databasesArea = $("#databases > ul");
@@ -182,5 +188,16 @@ class QuickDBCheck
     public function isAuthPassed()
     {
         return $this->error ? false : true;
+    }
+
+    public function getError()
+    {
+        $error = false;
+
+        if ($this->error) {
+            $error = $this->error;
+        }
+
+        return $error;
     }
 }
